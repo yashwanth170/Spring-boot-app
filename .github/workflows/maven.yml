@@ -10,24 +10,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: tacos
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
     steps:
+      
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
+
+      - name: Start containers
+        run: docker-compose -f "docker-compose.yml" up -d --build
+      
+      # - name: Set up JDK 17
+      #   uses: actions/setup-java@v2
+      #   with:
+      #     java-version: '17'
+      #     distribution: 'temurin'
+      #     cache: maven
+          
       - name: Build with Maven
-        run: mvn clean install
+        run: sudo mvn clean install
