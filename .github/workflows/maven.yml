@@ -19,7 +19,7 @@ jobs:
         run: docker-compose up --build -d
 
       - name: Build Spring Boot App
-        run: docker-compose exec -T spring-app ./mvnw clean install
+        run: docker-compose exec -T spring-app ./mvn clean install
           
       
       # - name: Set up JDK 17
