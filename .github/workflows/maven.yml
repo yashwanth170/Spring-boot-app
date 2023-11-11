@@ -22,6 +22,7 @@ jobs:
         run: docker-compose exec -T spring-app ./mvn clean install
           
       
+      
       # - name: Set up JDK 17
       #   uses: actions/setup-java@v2
       #   with:
