@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  mysql:
+
+    image: mysql:latest
+    container_name: mysqldb2
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: tacos
+    ports:
+      - '3307:3306'
+    networks:
+      spring-net:
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+  spring-app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "9090:8080"
+    depends_on:
+      - mysql
+    networks:
+      spring-net:
+
+
+networks:
+  spring-net:
